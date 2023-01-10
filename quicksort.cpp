@@ -1,4 +1,7 @@
 
+#include <vector>
+
+using namespace std;
 
 void quickSort(vector<int>& nums, int left, int right) {
     int i = left;
@@ -6,6 +9,7 @@ void quickSort(vector<int>& nums, int left, int right) {
     int tmp;
     int pivot = nums[(left + right) / 2];
 
+    // partition step
     while (i <= j) {
         while (nums[i] < pivot) {
             i++;
