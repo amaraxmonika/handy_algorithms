@@ -66,6 +66,8 @@ void shiftArrayN(vector<int>& nums, int count) {
 //                    un-reversed in their own sub-array.
 // {d, e, f, c, b, a} Finally we un-reverse the second sub-array yielding
 // {d, e, f, a, b, c}.
+// Note that count % shiftLen is necessary in general because shifting
+// the array nums.size() times yields the same array and is wasted work.
 void fancyShiftArrayN(vector<int>& nums, int count) {
     int shiftLen = count % nums.size();
     reverse(nums.begin(), nums.end());
