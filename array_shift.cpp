@@ -43,7 +43,6 @@ void shiftArrayN(vector<int>& nums, int count) {
 
     for (int i = 0; i < nums.size(); i+=count) {
         // int current = nums[i];
-        printf("vars: i=%d, nums.size()=%d\n", i, nums.size());
 
         for (int j = 0; j < current.size(); j++) {
             current[j] = nums[i+j];
@@ -70,7 +69,7 @@ void shiftArrayN(vector<int>& nums, int count) {
 void fancyShiftArrayN(vector<int>& nums, int count) {
     int shiftLen = count % nums.size();
     reverse(nums.begin(), nums.end());
-    reverse(nums.begin(), nums.end() + shiftLen);
+    reverse(nums.begin(), nums.begin() + shiftLen);
     reverse(nums.begin() + shiftLen, nums.end());
 }
 
@@ -87,6 +86,11 @@ int main(int argc, char **argv) {
     printArray(data2);
     shiftArrayN(data2, 3);
     printArray(data2);
+
+    vector<int> data3{1, 2, 3, 4, 5, 6, 7};
+    printArray(data3);
+    fancyShiftArrayN(data3, 3);
+    printArray(data3);
 
     return 0;
 }
