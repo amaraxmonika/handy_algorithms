@@ -32,6 +32,19 @@ ListNode* middleNode(ListNode* head) {
     return slowPtr;
 }
 
+// NOTE: This removes the weirdness where we start with count = 1
+// and removes the need for a counting variable.
+ListNode* middleNode2(ListNode* head) {
+    ListNode* slowPtr = head;
+    ListNode* fastPtr = head;
+    while (fastPtr != nullptr && fastPtr->next != nullptr) {
+        slowPtr = slowPtr->next;
+        fastPtr = fastPtr->next->next;
+    }
+
+    return slowPtr;
+}
+
 int main() {
     // construct list
     ListNode* head = new ListNode(1);
@@ -42,6 +55,9 @@ int main() {
     }
     printList(head);
     ListNode* middle = middleNode(head);
+    printList(middle);
+
+    middle = middleNode2(head);
     printList(middle);
     return 0;
 }
