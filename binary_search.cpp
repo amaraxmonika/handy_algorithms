@@ -23,6 +23,31 @@ int binarySearch(const vector<int>& nums, int target) {
     int hi = nums.size() - 1;
     int mid;
 
+    while (low <= hi) {
+        mid = low + ((hi - low) / 2);
+        if (nums[mid] < target) {
+            low = mid + 1;
+        } else if (nums[mid] > target) {
+            hi = mid - 1;
+        } else {
+            return mid;
+        }
+    }
+
+    return low;
+}
+
+// If the value we are searching for is duplicated, then this
+// returns the index of the leftmost or first instance of the
+// target. Note that this differs from the the rightmost
+// implementation only by the comparison 'nums[mid] < target'
+// and by the value returned 'low' instead of 'hi - 1'.
+int binarySearchLeftmost(const vector<int>& nums, int target) {
+
+    int low = 0;
+    int hi = nums.size();
+    int mid;
+
     while (low < hi) {
         mid = low + ((hi - low) / 2);
         if (nums[mid] < target) {
@@ -30,10 +55,32 @@ int binarySearch(const vector<int>& nums, int target) {
         } else {
             hi = mid;
         }
-        printf("low, mid, hi: %d, %d, %d\n", low, mid, hi);
     }
 
     return low;
+}
+
+// If the value we are searching for is duplicated, then this
+// returns the index of the rightmost or last instance of the
+// target. Note that this implementation differs from the leftmost
+// implementation only by the comparison 'nums[mid] <= target' and
+// by the value that is returned 'hi - 1'.
+int binarySearchRightmost(const vector<int>& nums, int target) {
+
+    int low = 0;
+    int hi = nums.size();
+    int mid;
+
+    while (low < hi) {
+        mid = low + ((hi - low) / 2);
+        if (nums[mid] <= target) {
+            low = mid + 1;
+        } else {
+            hi = mid;
+        }
+    }
+
+    return hi - 1;
 }
 
 
@@ -47,6 +94,15 @@ int main(int argc, char **argv) {
     result = binarySearch(data, 8);
     printf("result: %d\n", result);
     assert(data[7] == data[result]);
+    assert(binarySearchLeftmost(data, 8) == binarySearchRightmost(data, 8));
+
+    vector<int> data2{1, 2, 3, 3, 3, 3, 3, 6, 7};
+    result = binarySearchLeftmost(data2, 3);
+    printf("leftmost result: %d\n", result);
+    assert(result == 2);
+    result = binarySearchRightmost(data2, 3);
+    printf("last result: %d\n", result);
+    assert(result == 6);
 
     return 0;
 }
