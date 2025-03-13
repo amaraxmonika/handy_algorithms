@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <assert.h>
 
 using namespace std;
 
@@ -44,5 +45,10 @@ int main() {
         }
         cout << endl;
     }
+    assert(result[0][0] == 7);
+    assert(result[1][0] == 9);
+    assert(result[1][1] == 11);
+    assert(result[2][0] == 13);
+    assert(result[2][1] == 15);
     return 0;
 }
