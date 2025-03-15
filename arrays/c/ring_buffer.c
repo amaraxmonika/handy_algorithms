@@ -18,22 +18,35 @@ typedef struct {
     pthread_mutex_t mutex;
 }RingBuffer;
 
-void ring_buffer__init(RingBuffer* rb) {
+bool ring_buffer__init(RingBuffer* rb) {
+    if (rb == NULL) {
+        return false;
+    }
     memset(&rb->buffer, 0, sizeof(rb->buffer));
     rb->head = 0;
     rb->tail = 0;
     rb->count = 0;
+    return true;
 }
 
 bool ring_buffer__full(RingBuffer* rb) {
+    if (rb == NULL) {
+        return false;
+    }
     return rb->count == (SIZE - 1);
 }
 
 bool ring_buffer__empty(RingBuffer* rb) {
+    if (rb == NULL) {
+        return false;
+    }
     return rb->count == 0;
 }
 
 bool ring_buffer__push(RingBuffer *rb, uint8_t data) {
+    if (rb == NULL) {
+        return false;
+    }
     pthread_mutex_lock(&rb->mutex);
     if (ring_buffer__full(rb)) {
         pthread_mutex_unlock(&rb->mutex);
@@ -47,6 +60,9 @@ bool ring_buffer__push(RingBuffer *rb, uint8_t data) {
 }
 
 bool ring_buffer__pop(RingBuffer *rb, uint8_t* data) {
+    if (rb == NULL) {
+        return false;
+    }
     pthread_mutex_lock(&rb->mutex);
     if (ring_buffer__empty(rb)) {
         pthread_mutex_unlock(&rb->mutex);
